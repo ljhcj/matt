@@ -9,19 +9,21 @@ RUN apt-get update \
 
 RUN apt-get -y remove openjdk*
 
-# 安装软件包并解压
+# 下载软件包并解压
 RUN wget -P /usr/local/ http://download.zhongyinginfo.com/soft/jdk-7u79-linux-x64.tar.gz \
     && wget -P /usr/local/ http://download.zhongyinginfo.com/soft/otp_src_19.2.tar.gz \
     && wget -P /usr/local/ http://download.zhongyinginfo.com/soft/mqtt-release.tar.gz \
-    && cd /usr/local/ && tar xvf jdk-7u79-linux-x64.tar.gz && tar xvf otp_src_19.2.tar.gz && tar xvf mqtt-release.tar.gz \
-    && cd /usr/local/otp_src_19.2/ && ./configure && make && make install \
-    && chmod -R 777 /usr/local/mqtt-release
-
+    && cd /usr/local/ && tar xvf jdk-7u79-linux-x64.tar.gz && tar xvf otp_src_19.2.tar.gz && tar xvf mqtt-release.tar.gz 
+    
 # 配置java环境变量
 ENV JAVA_HOME /usr/local/jdk1.7.0_79
 ENV JRE_HOME $JAVA_HOME/jre
 ENV CLASSPATH .:$JAVA_HOME/lib:$JRE_HOME/lib
 ENV PATH $PATH:$JAVA_HOME/bin
+
+# 安装Erlang和MQTT
+RUN cd /usr/local/otp_src_19.2/ && ./configure && make && make install \
+    && chmod -R 777 /usr/local/mqtt-release
 
 EXPOSE  1883 8083
 
