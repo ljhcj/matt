@@ -13,7 +13,7 @@ RUN apt-get -y remove openjdk*
 RUN wget -P /usr/local/ http://download.zhongyinginfo.com/soft/jdk-7u79-linux-x64.tar.gz \
     && wget -P /usr/local/ http://download.zhongyinginfo.com/soft/otp_src_19.2.tar.gz \
     && wget -P /usr/local/ http://download.zhongyinginfo.com/soft/mqtt-release.tar.gz \
-    && cd /usr/local/ && tar -zxvf jdk-7u79-linux-x64.tar.gz && tar -zxvf otp_src_19.2.tar.gz && tar -zxvf mqtt-release.tar.gz \
+    && cd /usr/local/ && tar xvf jdk-7u79-linux-x64.tar.gz && tar xvf otp_src_19.2.tar.gz && tar xvf mqtt-release.tar.gz \
     && cd /usr/local/otp_src_19.2/ && ./configure && make && make install \
     && chmod -R 777 /usr/local/mqtt-release
 
